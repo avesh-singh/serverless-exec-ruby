@@ -870,7 +870,7 @@ module Google
         after_time = (create_time - 3600).strftime "%Y-%m-%dT%H:%M:%SZ"
         before_time = (create_time + 3600).strftime "%Y-%m-%dT%H:%M:%SZ"
         partial_uri = "gcr.io/#{@project}/appengine/#{@service}.#{@version}"
-        filter = "createTime>#{after_time} createTime<#{before_time} images[]:#{partial_uri}"
+        filter = "createTime>#{after_time} createTime<#{before_time} substitutions[_OUTPUT_IMAGE]:#{partial_uri}"
         result = Exec::Gcloud.execute \
           [
             "builds", "list",
@@ -882,7 +882,7 @@ module Google
         result.strip!
         raise NoSuchVersion.new(@service, @version) if result.empty?
         build_info = ::JSON.parse(result).first
-        build_info["images"].first
+        builds.dig('substitutions', '_OUTPUT_IMAGE')
       end
 
       def describe_build_strategy
