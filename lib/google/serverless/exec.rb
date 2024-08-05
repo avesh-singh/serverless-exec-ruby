@@ -882,7 +882,7 @@ module Google
         result.strip!
         raise NoSuchVersion.new(@service, @version) if result.empty?
         build_info = ::JSON.parse(result).first
-        builds.dig('substitutions', '_OUTPUT_IMAGE')
+        build_info.dig('substitutions', '_OUTPUT_IMAGE')
       end
 
       def describe_build_strategy
