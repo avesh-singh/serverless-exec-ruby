@@ -830,7 +830,7 @@ module Google
           cloud_sql_instances = beta_settings["cloud_sql_instances"] || []
           container = app_info.dig("deployment", "container")
           image = container ? container["image"] : image_from_build(app_info)
-          image = "asia.gcr.io/serverless-runtimes/google-22-full/run:ruby_20240729_RC01"
+          # image = "asia.gcr.io/delta-vector-305212/appengine/crux-staging-worker.20240814t202436:latest"
         else
           env_variables = {}
           app_env = app_info["spec"]["template"]["spec"]["containers"][0]["env"]
